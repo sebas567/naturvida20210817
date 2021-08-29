@@ -1,0 +1,476 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="naturvidaclaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cliente">
+          <Key>
+            <PropertyRef Name="documento" />
+          </Key>
+          <Property Name="documento" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="direccion" Type="varchar" MaxLength="50" />
+          <Property Name="telefono" Type="varchar" MaxLength="30" />
+          <Property Name="correo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="factura">
+          <Key>
+            <PropertyRef Name="Numero" />
+          </Key>
+          <Property Name="Numero" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="date" />
+          <Property Name="documento_Cliente" Type="varchar" MaxLength="10" />
+          <Property Name="documento_vendedor" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Factura_Detalle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Numero_Factura" Type="int" />
+          <Property Name="Codigo_Productos" Type="varchar" MaxLength="10" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="Valor_Unidad" Type="decimal" Precision="15" Scale="3" />
+        </EntityType>
+        <EntityType Name="productos">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Descripción" Type="varchar" MaxLength="50" />
+          <Property Name="Valor_Unidad" Type="decimal" Precision="15" Scale="3" />
+          <Property Name="Cantidad" Type="int" />
+        </EntityType>
+        <EntityType Name="vendedores">
+          <Key>
+            <PropertyRef Name="documento" />
+          </Key>
+          <Property Name="documento" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="30" />
+          <Property Name="contraseña" Type="varchar" MaxLength="64" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__factura__documen__4316F928">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="0..1" />
+          <End Role="factura" Type="Self.factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="documento" />
+            </Principal>
+            <Dependent Role="factura">
+              <PropertyRef Name="documento_Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__factura__documen__440B1D61">
+          <End Role="vendedores" Type="Self.vendedores" Multiplicity="0..1" />
+          <End Role="factura" Type="Self.factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vendedores">
+              <PropertyRef Name="documento" />
+            </Principal>
+            <Dependent Role="factura">
+              <PropertyRef Name="documento_vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura_D__Codig__47DBAE45">
+          <End Role="productos" Type="Self.productos" Multiplicity="0..1" />
+          <End Role="Factura_Detalle" Type="Self.Factura_Detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Factura_Detalle">
+              <PropertyRef Name="Codigo_Productos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura_D__Valor__46E78A0C">
+          <End Role="factura" Type="Self.factura" Multiplicity="0..1" />
+          <End Role="Factura_Detalle" Type="Self.Factura_Detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="factura">
+              <PropertyRef Name="Numero" />
+            </Principal>
+            <Dependent Role="Factura_Detalle">
+              <PropertyRef Name="Numero_Factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AddFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="numero" Type="int" Mode="In" />
+          <Parameter Name="fecha" Type="date" Mode="In" />
+          <Parameter Name="cliente" Type="varchar" Mode="In" />
+          <Parameter Name="vendedor" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="AddFacturaDetalle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="factura" Type="int" Mode="In" />
+          <Parameter Name="producto" Type="varchar" Mode="In" />
+          <Parameter Name="cantidad" Type="int" Mode="In" />
+          <Parameter Name="valorUnidad" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="sp_Addcliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="documento" Type="varchar" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="direccion" Type="varchar" Mode="In" />
+          <Parameter Name="telefono" Type="varchar" Mode="In" />
+          <Parameter Name="correo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_AddProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="codigo" Type="varchar" Mode="In" />
+          <Parameter Name="descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="valor_unidad" Type="decimal" Mode="In" />
+          <Parameter Name="cantidad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_AddVendedor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="documento" Type="varchar" Mode="In" />
+          <Parameter Name="usuario" Type="varchar" Mode="In" />
+          <Parameter Name="contraseña" Type="varchar" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_remCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="documento" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_RemProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="codigo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_RemVendedor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="documento" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_updCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="documento" Type="varchar" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="direccion" Type="varchar" Mode="In" />
+          <Parameter Name="telefono" Type="varchar" Mode="In" />
+          <Parameter Name="correo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_updProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="codigo" Type="varchar" Mode="In" />
+          <Parameter Name="descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="valor_unidad" Type="decimal" Mode="In" />
+          <Parameter Name="cantidad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_updVendedor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="documento" Type="varchar" Mode="In" />
+          <Parameter Name="usuario" Type="varchar" Mode="In" />
+          <Parameter Name="contraseña" Type="varchar" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="naturvidaclaseModelStoreContainer">
+          <EntitySet Name="cliente" EntityType="Self.cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="factura" EntityType="Self.factura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Factura_Detalle" EntityType="Self.Factura_Detalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="productos" EntityType="Self.productos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vendedores" EntityType="Self.vendedores" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__factura__documen__4316F928" Association="Self.FK__factura__documen__4316F928">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="factura" EntitySet="factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__factura__documen__440B1D61" Association="Self.FK__factura__documen__440B1D61">
+            <End Role="vendedores" EntitySet="vendedores" />
+            <End Role="factura" EntitySet="factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura_D__Codig__47DBAE45" Association="Self.FK__Factura_D__Codig__47DBAE45">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="Factura_Detalle" EntitySet="Factura_Detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura_D__Valor__46E78A0C" Association="Self.FK__Factura_D__Valor__46E78A0C">
+            <End Role="factura" EntitySet="factura" />
+            <End Role="Factura_Detalle" EntitySet="Factura_Detalle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="naturvidaclaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cliente">
+          <Key>
+            <PropertyRef Name="documento" />
+          </Key>
+          <Property Name="documento" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="factura">
+          <Key>
+            <PropertyRef Name="Numero" />
+          </Key>
+          <Property Name="Numero" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="documento_Cliente" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="documento_vendedor" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Factura_Detalle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero_Factura" Type="Int32" />
+          <Property Name="Codigo_Productos" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="Valor_Unidad" Type="Decimal" Precision="15" Scale="3" />
+        </EntityType>
+        <EntityType Name="productos">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripción" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Valor_Unidad" Type="Decimal" Precision="15" Scale="3" />
+          <Property Name="Cantidad" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vendedores">
+          <Key>
+            <PropertyRef Name="documento" />
+          </Key>
+          <Property Name="documento" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuario" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="contraseña" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__factura__documen__4316F928">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="0..1" />
+          <End Role="factura" Type="Self.factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="documento" />
+            </Principal>
+            <Dependent Role="factura">
+              <PropertyRef Name="documento_Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__factura__documen__440B1D61">
+          <End Role="vendedores" Type="Self.vendedores" Multiplicity="0..1" />
+          <End Role="factura" Type="Self.factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vendedores">
+              <PropertyRef Name="documento" />
+            </Principal>
+            <Dependent Role="factura">
+              <PropertyRef Name="documento_vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura_D__Valor__46E78A0C">
+          <End Role="factura" Type="Self.factura" Multiplicity="0..1" />
+          <End Role="Factura_Detalle" Type="Self.Factura_Detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="factura">
+              <PropertyRef Name="Numero" />
+            </Principal>
+            <Dependent Role="Factura_Detalle">
+              <PropertyRef Name="Numero_Factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura_D__Codig__47DBAE45">
+          <End Role="productos" Type="Self.productos" Multiplicity="0..1" />
+          <End Role="Factura_Detalle" Type="Self.Factura_Detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Factura_Detalle">
+              <PropertyRef Name="Codigo_Productos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="naturvidaclaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cliente" EntityType="Self.cliente" />
+          <EntitySet Name="factura" EntityType="Self.factura" />
+          <EntitySet Name="Factura_Detalle" EntityType="Self.Factura_Detalle" />
+          <EntitySet Name="productos" EntityType="Self.productos" />
+          <EntitySet Name="vendedores" EntityType="Self.vendedores" />
+          <AssociationSet Name="FK__factura__documen__4316F928" Association="Self.FK__factura__documen__4316F928">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="factura" EntitySet="factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__factura__documen__440B1D61" Association="Self.FK__factura__documen__440B1D61">
+            <End Role="vendedores" EntitySet="vendedores" />
+            <End Role="factura" EntitySet="factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura_D__Valor__46E78A0C" Association="Self.FK__Factura_D__Valor__46E78A0C">
+            <End Role="factura" EntitySet="factura" />
+            <End Role="Factura_Detalle" EntitySet="Factura_Detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura_D__Codig__47DBAE45" Association="Self.FK__Factura_D__Codig__47DBAE45">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="Factura_Detalle" EntitySet="Factura_Detalle" />
+          </AssociationSet>
+          <FunctionImport Name="sp_Addcliente">
+            <Parameter Name="documento" Mode="In" Type="String" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="direccion" Mode="In" Type="String" />
+            <Parameter Name="telefono" Mode="In" Type="String" />
+            <Parameter Name="correo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_remCliente">
+          <Parameter Name="documento" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_updCliente">
+            <Parameter Name="documento" Mode="In" Type="String" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="direccion" Mode="In" Type="String" />
+            <Parameter Name="telefono" Mode="In" Type="String" />
+            <Parameter Name="correo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AddProducto">
+            <Parameter Name="codigo" Mode="In" Type="String" />
+            <Parameter Name="descripcion" Mode="In" Type="String" />
+            <Parameter Name="valor_unidad" Mode="In" Type="Decimal" />
+            <Parameter Name="cantidad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AddVendedor">
+            <Parameter Name="documento" Mode="In" Type="String" />
+            <Parameter Name="usuario" Mode="In" Type="String" />
+            <Parameter Name="contraseña" Mode="In" Type="String" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_RemProducto">
+          <Parameter Name="codigo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_RemVendedor">
+          <Parameter Name="documento" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_updProducto">
+            <Parameter Name="codigo" Mode="In" Type="String" />
+            <Parameter Name="descripcion" Mode="In" Type="String" />
+            <Parameter Name="valor_unidad" Mode="In" Type="Decimal" />
+            <Parameter Name="cantidad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_updVendedor">
+            <Parameter Name="documento" Mode="In" Type="String" />
+            <Parameter Name="usuario" Mode="In" Type="String" />
+            <Parameter Name="contraseña" Mode="In" Type="String" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddFactura">
+            <Parameter Name="numero" Mode="In" Type="Int32" />
+            <Parameter Name="fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="cliente" Mode="In" Type="String" />
+            <Parameter Name="vendedor" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddFacturaDetalle">
+            <Parameter Name="factura" Mode="In" Type="Int32" />
+            <Parameter Name="producto" Mode="In" Type="String" />
+            <Parameter Name="cantidad" Mode="In" Type="Int32" />
+            <Parameter Name="valorUnidad" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="addAdmin">
+            <Parameter Name="nombre" Type="String" Mode="In" />
+            <Parameter Name="maquina" Type="String" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="agregarLicencia">
+          <Parameter Name="licencia" Type="String" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="sp_addMaquinaProp">
+            <Parameter Name="maquina" Mode="In" Type="String" />
+            <Parameter Name="propietario" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_addPropietario">
+            <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updLicencia">
+            <Parameter Name="licencia" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="naturvidaclaseModelStoreContainer" CdmEntityContainer="naturvidaclaseEntities">
+          <EntitySetMapping Name="cliente">
+            <EntityTypeMapping TypeName="naturvidaclaseModel.cliente">
+              <MappingFragment StoreEntitySet="cliente">
+                <ScalarProperty Name="documento" ColumnName="documento" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="factura">
+            <EntityTypeMapping TypeName="naturvidaclaseModel.factura">
+              <MappingFragment StoreEntitySet="factura">
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="documento_Cliente" ColumnName="documento_Cliente" />
+                <ScalarProperty Name="documento_vendedor" ColumnName="documento_vendedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Factura_Detalle">
+            <EntityTypeMapping TypeName="naturvidaclaseModel.Factura_Detalle">
+              <MappingFragment StoreEntitySet="Factura_Detalle">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Numero_Factura" ColumnName="Numero_Factura" />
+                <ScalarProperty Name="Codigo_Productos" ColumnName="Codigo_Productos" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Valor_Unidad" ColumnName="Valor_Unidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos">
+            <EntityTypeMapping TypeName="naturvidaclaseModel.productos">
+              <MappingFragment StoreEntitySet="productos">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripción" ColumnName="Descripción" />
+                <ScalarProperty Name="Valor_Unidad" ColumnName="Valor_Unidad" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vendedores">
+            <EntityTypeMapping TypeName="naturvidaclaseModel.vendedores">
+              <MappingFragment StoreEntitySet="vendedores">
+                <ScalarProperty Name="documento" ColumnName="documento" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_Addcliente" FunctionName="naturvidaclaseModel.Store.sp_Addcliente" />
+          <FunctionImportMapping FunctionImportName="sp_remCliente" FunctionName="naturvidaclaseModel.Store.sp_remCliente" />
+          <FunctionImportMapping FunctionImportName="sp_updCliente" FunctionName="naturvidaclaseModel.Store.sp_updCliente" />
+          <FunctionImportMapping FunctionImportName="sp_AddProducto" FunctionName="naturvidaclaseModel.Store.sp_AddProducto" />
+          <FunctionImportMapping FunctionImportName="sp_AddVendedor" FunctionName="naturvidaclaseModel.Store.sp_AddVendedor" />
+          <FunctionImportMapping FunctionImportName="sp_RemProducto" FunctionName="naturvidaclaseModel.Store.sp_RemProducto" />
+          <FunctionImportMapping FunctionImportName="sp_RemVendedor" FunctionName="naturvidaclaseModel.Store.sp_RemVendedor" />
+          <FunctionImportMapping FunctionImportName="sp_updProducto" FunctionName="naturvidaclaseModel.Store.sp_updProducto" />
+          <FunctionImportMapping FunctionImportName="sp_updVendedor" FunctionName="naturvidaclaseModel.Store.sp_updVendedor" />
+          <FunctionImportMapping FunctionImportName="AddFactura" FunctionName="naturvidaclaseModel.Store.AddFactura" />
+          <FunctionImportMapping FunctionImportName="AddFacturaDetalle" FunctionName="naturvidaclaseModel.Store.AddFacturaDetalle" />
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
