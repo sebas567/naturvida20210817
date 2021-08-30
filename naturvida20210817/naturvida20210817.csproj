@@ -140,6 +140,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Vista\frmClientes.resx">
       <DependentUpon>frmClientes.cs</DependentUpon>
@@ -192,6 +193,7 @@
       <DependentUpon>ClienteModel.edmx</DependentUpon>
       <LastGenOutput>ClienteModel.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\1486504352-checklist-clipboard-inventory-list-report-tasks-todo_81326.ico" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

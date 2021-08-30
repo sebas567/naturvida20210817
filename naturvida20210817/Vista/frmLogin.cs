@@ -55,5 +55,10 @@ namespace naturvida20210817.Vista
         {
             Application.Exit();
         }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+            lblTitulo.Text = "   Sistema de Información\nTienda Naturista Naturvida";
+        }
     }
 }

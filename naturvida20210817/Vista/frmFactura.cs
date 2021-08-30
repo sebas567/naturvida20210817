@@ -24,11 +24,20 @@ namespace naturvida20210817.Vista
         string[,] detalleProducto = new string[500, 5];
         int fila;
 
-        private void frmFactura_Load(object sender, EventArgs e)
+        private void recargar()
         {
-            txtNumero.Text = Convert.ToString(objfacturaController.numFac()+1);
+            txtNumero.Text = Convert.ToString(objfacturaController.numFac() + 1);
             llenarComboCliente();
             llenarComboProducto();
+            txtCantidad.Text = "";
+            dgvFactura.Rows.Clear();
+            txtTotalFac.Text = "";
+        }
+
+
+        private void frmFactura_Load(object sender, EventArgs e)
+        {
+          recargar();
         }
 
         public void llenarComboCliente()
@@ -126,6 +135,7 @@ namespace naturvida20210817.Vista
                 fila = 0;
 
                 MessageBox.Show("Factura generada","Venta exitosa",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                recargar();
             }
             
         }

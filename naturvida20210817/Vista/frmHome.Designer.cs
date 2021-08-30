@@ -58,6 +58,11 @@ namespace naturvida20210817.Vista
             // btnVendedores
             // 
             this.btnVendedores.BackColor = System.Drawing.Color.White;
+            this.btnVendedores.FlatAppearance.BorderColor = System.Drawing.Color.Lime;
+            this.btnVendedores.FlatAppearance.BorderSize = 2;
+            this.btnVendedores.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVendedores.Font = new System.Drawing.Font("Maiandra GD", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVendedores.ForeColor = System.Drawing.Color.Lime;
             this.btnVendedores.Location = new System.Drawing.Point(0, 370);
             this.btnVendedores.Name = "btnVendedores";
             this.btnVendedores.Size = new System.Drawing.Size(200, 76);
@@ -69,9 +74,11 @@ namespace naturvida20210817.Vista
             // lblDocumento
             // 
             this.lblDocumento.AutoSize = true;
-            this.lblDocumento.Location = new System.Drawing.Point(57, 33);
+            this.lblDocumento.Font = new System.Drawing.Font("Maiandra GD", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDocumento.ForeColor = System.Drawing.Color.White;
+            this.lblDocumento.Location = new System.Drawing.Point(48, 19);
             this.lblDocumento.Name = "lblDocumento";
-            this.lblDocumento.Size = new System.Drawing.Size(62, 13);
+            this.lblDocumento.Size = new System.Drawing.Size(102, 19);
             this.lblDocumento.TabIndex = 4;
             this.lblDocumento.Text = "Documento";
             this.lblDocumento.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -79,15 +86,22 @@ namespace naturvida20210817.Vista
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(12, 64);
+            this.lblNombre.Font = new System.Drawing.Font("Maiandra GD", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombre.ForeColor = System.Drawing.Color.White;
+            this.lblNombre.Location = new System.Drawing.Point(12, 51);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(44, 13);
+            this.lblNombre.Size = new System.Drawing.Size(75, 19);
             this.lblNombre.TabIndex = 3;
             this.lblNombre.Text = "Nombre";
             // 
             // btnSecond
             // 
             this.btnSecond.BackColor = System.Drawing.Color.White;
+            this.btnSecond.FlatAppearance.BorderColor = System.Drawing.Color.Lime;
+            this.btnSecond.FlatAppearance.BorderSize = 2;
+            this.btnSecond.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSecond.Font = new System.Drawing.Font("Maiandra GD", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSecond.ForeColor = System.Drawing.Color.Lime;
             this.btnSecond.Location = new System.Drawing.Point(0, 190);
             this.btnSecond.Name = "btnSecond";
             this.btnSecond.Size = new System.Drawing.Size(200, 76);
@@ -99,6 +113,11 @@ namespace naturvida20210817.Vista
             // btnThird
             // 
             this.btnThird.BackColor = System.Drawing.Color.White;
+            this.btnThird.FlatAppearance.BorderColor = System.Drawing.Color.Lime;
+            this.btnThird.FlatAppearance.BorderSize = 2;
+            this.btnThird.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThird.Font = new System.Drawing.Font("Maiandra GD", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThird.ForeColor = System.Drawing.Color.Lime;
             this.btnThird.Location = new System.Drawing.Point(0, 281);
             this.btnThird.Name = "btnThird";
             this.btnThird.Size = new System.Drawing.Size(200, 76);
@@ -110,6 +129,12 @@ namespace naturvida20210817.Vista
             // btnFirst
             // 
             this.btnFirst.BackColor = System.Drawing.Color.White;
+            this.btnFirst.FlatAppearance.BorderColor = System.Drawing.Color.Lime;
+            this.btnFirst.FlatAppearance.BorderSize = 2;
+            this.btnFirst.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFirst.Font = new System.Drawing.Font("Maiandra GD", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFirst.ForeColor = System.Drawing.Color.Lime;
+            this.btnFirst.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnFirst.Location = new System.Drawing.Point(0, 98);
             this.btnFirst.Name = "btnFirst";
             this.btnFirst.Size = new System.Drawing.Size(200, 76);
