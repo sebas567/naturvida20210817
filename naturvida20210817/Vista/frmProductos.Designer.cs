@@ -77,6 +77,7 @@ namespace naturvida20210817.Vista
             this.btnEliminar.TabIndex = 33;
             this.btnEliminar.Text = "ELIMINAR";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Visible = false;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnEditar

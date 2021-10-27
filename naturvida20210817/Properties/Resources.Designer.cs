@@ -59,15 +59,5 @@ namespace naturvida20210817.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _1486504352_checklist_clipboard_inventory_list_report_tasks_todo_81326 {
-            get {
-                object obj = ResourceManager.GetObject("1486504352-checklist-clipboard-inventory-list-report-tasks-todo_81326", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

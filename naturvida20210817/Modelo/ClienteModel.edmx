@@ -156,7 +156,6 @@
         <Function Name="sp_updVendedor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="documento" Type="varchar" Mode="In" />
           <Parameter Name="usuario" Type="varchar" Mode="In" />
-          <Parameter Name="contraseña" Type="varchar" Mode="In" />
           <Parameter Name="nombre" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="naturvidaclaseModelStoreContainer">
@@ -347,7 +346,6 @@
           <FunctionImport Name="sp_updVendedor">
             <Parameter Name="documento" Mode="In" Type="String" />
             <Parameter Name="usuario" Mode="In" Type="String" />
-            <Parameter Name="contraseña" Mode="In" Type="String" />
             <Parameter Name="nombre" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="AddFactura">

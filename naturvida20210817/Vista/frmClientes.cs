@@ -126,33 +126,38 @@ namespace naturvida20210817.Vista
         {
             try
             {
+                if (txtDocumento.Text == "")
+                {
+                    LblRestricción.Text = "No ha escogido ningun vendedor\n          para actualizar";
+                }
+                else
+                {
+                    DialogResult decision = MessageBox.Show("Esta seguro de actualizar el cliente " + dgvClientes.CurrentRow.Cells[1].Value.ToString() + ".Esta es acción es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                    DialogResult decision = MessageBox.Show("Esta seguro de actualizar el cliente " + dgvClientes.CurrentRow.Cells[1].Value.ToString() + ".Esta es acción es irreversible", "Confirmación",MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
-
-                    if(decision == DialogResult.Yes)
+                    if (decision == DialogResult.Yes)
                     {
-                    if (utilidades.validarEmail(txtCorreo.Text) == true)
-                    {
-                        int result = ojbClienteController.updateCliente(txtDocumento.Text, txtNombre.Text, txtDireccion.Text, txtTelefono.Text, txtCorreo.Text);
-                        LlenarTabla();
-                        LimpiarForm();
-                        if (result != 1)
+                        if (utilidades.validarEmail(txtCorreo.Text) == true)
                         {
-                            MessageBox.Show("Algo salio mal.No se pudo actualizar el registro", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            int result = ojbClienteController.updateCliente(txtDocumento.Text, txtNombre.Text, txtDireccion.Text, txtTelefono.Text, txtCorreo.Text);
+                            LlenarTabla();
+                            LimpiarForm();
+                            if (result != 1)
+                            {
+                                MessageBox.Show("Algo salio mal.No se pudo actualizar el registro", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else
+                            {
+                                LblRestricción.ForeColor = Color.Green;
+                                LblRestricción.Text = "Registro actualizado con exito";
+                            }
                         }
                         else
                         {
-                            LblRestricción.ForeColor = Color.Green;
-                            LblRestricción.Text = "Registro actualizado con exito";
+                            MessageBox.Show("El correo es invalido.No se pudo actualizar el registro", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-                    else
-                    {
-                        MessageBox.Show("El correo es invalido.No se pudo actualizar el registro", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                 }
+                }
 
-             
             }
             catch
             {
@@ -166,11 +171,16 @@ namespace naturvida20210817.Vista
         {
             try
             {
+                if (txtDocumento.Text == "")
+                {
+                    LblRestricción.Text = "No ha escogido ningun vendedor\n          para actualizar";
+                }
+                else
+                {
+                    DialogResult decision = MessageBox.Show("Esta seguro de eliminar el cliente " + dgvClientes.CurrentRow.Cells[1].Value.ToString() + ".Esta es acción es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-               DialogResult decision = MessageBox.Show("Esta seguro de eliminar el cliente " + dgvClientes.CurrentRow.Cells[1].Value.ToString() + ".Esta es acción es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (decision == DialogResult.Yes)
-               {
+                    if (decision == DialogResult.Yes)
+                    {
                         int result = ojbClienteController.DelCliente(txtDocumento.Text);
                         LlenarTabla();
                         LimpiarForm();
@@ -186,6 +196,7 @@ namespace naturvida20210817.Vista
                         }
 
 
+                    }
                 }
             }
             catch

@@ -173,7 +173,7 @@ namespace naturvida20210817.Modelo
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_updProducto", codigoParameter, descripcionParameter, valor_unidadParameter, cantidadParameter);
         }
     
-        public virtual int sp_updVendedor(string documento, string usuario, string contraseña, string nombre)
+        public virtual int sp_updVendedor(string documento, string usuario, string nombre)
         {
             var documentoParameter = documento != null ?
                 new ObjectParameter("documento", documento) :
@@ -183,15 +183,11 @@ namespace naturvida20210817.Modelo
                 new ObjectParameter("usuario", usuario) :
                 new ObjectParameter("usuario", typeof(string));
     
-            var contraseñaParameter = contraseña != null ?
-                new ObjectParameter("contraseña", contraseña) :
-                new ObjectParameter("contraseña", typeof(string));
-    
             var nombreParameter = nombre != null ?
                 new ObjectParameter("nombre", nombre) :
                 new ObjectParameter("nombre", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_updVendedor", documentoParameter, usuarioParameter, contraseñaParameter, nombreParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_updVendedor", documentoParameter, usuarioParameter, nombreParameter);
         }
     
         public virtual int AddFactura(Nullable<int> numero, Nullable<System.DateTime> fecha, string cliente, string vendedor)

@@ -34,12 +34,12 @@ namespace naturvida20210817.Controlador
 
         //Metodo para actualizar
 
-        public int updateVendedor(string documento, string usuario, string contraseña, string nombre)
+        public int updateVendedor(string documento, string usuario, string nombre)
         {
             int result;
             using (naturvidaclaseEntities db = new naturvidaclaseEntities())
             {
-                result = db.sp_updVendedor(documento, usuario, contraseña, nombre);
+                result = db.sp_updVendedor(documento, usuario, nombre);
             }
             return result;
         }

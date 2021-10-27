@@ -115,14 +115,14 @@ namespace naturvida20210817.Vista
 
         private void btnTerminarFac_Click(object sender, EventArgs e)
         {
-            DialogResult cerrar = MessageBox.Show("Confima terminar factura "+txtNumero.Text+" por valor total de: "+txtTotalFac.Text, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            DialogResult cerrar = MessageBox.Show("Confirma terminar factura "+txtNumero.Text+" por valor total de: "+txtTotalFac.Text, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             if (cerrar == DialogResult.Yes)
             {
                 objfacturaController.addFactura(Convert.ToInt32(txtNumero.Text), dtpFecha.Value, cbCliente.SelectedValue.ToString(), modVariables.documento);
 
                 for (int i = 0; i < fila; i++)
                 {
-                    objfacturaController.addFacturaDetalle(Convert.ToInt32(txtNumero.Text), dgvFactura.Rows[i].Cells[0].Value.ToString(), Convert.ToInt32(txtCantidad.Text), decimal.Parse(dgvFactura.Rows[i].Cells[2].Value.ToString()));
+                    objfacturaController.addFacturaDetalle(Convert.ToInt32(txtNumero.Text), dgvFactura.Rows[i].Cells[0].Value.ToString(), Convert.ToInt32(dgvFactura.Rows[i].Cells[3].Value), decimal.Parse(dgvFactura.Rows[i].Cells[2].Value.ToString()));
 
                     var producto = objfacturaController.AgregarProducto(dgvFactura.Rows[i].Cells[0].Value.ToString());
 
@@ -144,5 +144,6 @@ namespace naturvida20210817.Vista
         {
             utilidades.soloNumeros(e);
         }
+
     }
 }

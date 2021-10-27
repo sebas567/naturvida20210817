@@ -111,28 +111,17 @@ namespace naturvida20210817.Vista
         //Evento para actualizar
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            /*if (txtDocumento.Text == "")
+            if (txtDocumento.Text == "")
             {
                 LblRestricción.Text = "No ha escogido ningun vendedor\n          para actualizar";
             }
             else
             {
-                ojbClienteController.updateVendedor(txtDocumento.Text, txtUsuario.Text, txtContrasena.Text, txtNombre.Text);
-                LlenarTabla();
-                LimpiarForm();
-            }*/
-        }
-
-        //Evento del boton
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                DialogResult decision = MessageBox.Show("Esta seguro de eliminar el vendedor " + dgvVendedores.CurrentRow.Cells[1].Value.ToString() + ".Esta es acción es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult decision = MessageBox.Show("Esta seguro de actualizar el vendedor " + dgvVendedores.CurrentRow.Cells[1].Value.ToString() + ".Esta es acción es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (decision == DialogResult.Yes)
                 {
-                    int result = ojbClienteController.DelProducto(txtDocumento.Text);
+                    int result = ojbClienteController.updateVendedor(txtDocumento.Text, txtUsuario.Text, txtNombre.Text);
                     LlenarTabla();
                     LimpiarForm();
 
@@ -144,6 +133,39 @@ namespace naturvida20210817.Vista
                     {
                         LblRestricción.ForeColor = Color.Green;
                         LblRestricción.Text = "Registro guardado con exito";
+                    }
+                }
+            }
+        }
+
+        //Evento del boton
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtDocumento.Text == "")
+                {
+                    LblRestricción.Text = "No ha escogido ningun vendedor\n          para actualizar";
+                }
+                else
+                {
+                    DialogResult decision = MessageBox.Show("Esta seguro de eliminar el vendedor " + dgvVendedores.CurrentRow.Cells[1].Value.ToString() + ".Esta es acción es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if (decision == DialogResult.Yes)
+                    {
+                        int result = ojbClienteController.DelProducto(txtDocumento.Text);
+                        LlenarTabla();
+                        LimpiarForm();
+
+                        if (result != 1)
+                        {
+                            MessageBox.Show("Algo salio mal.No se pudo guardar el registro", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            LblRestricción.ForeColor = Color.Green;
+                            LblRestricción.Text = "Registro guardado con exito";
+                        }
                     }
                 }
             }
@@ -188,6 +210,11 @@ namespace naturvida20210817.Vista
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
         {
             utilidades.soloLetras(e);
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            LimpiarForm();
         }
     }
 }

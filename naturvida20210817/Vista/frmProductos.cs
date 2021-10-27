@@ -114,25 +114,31 @@ namespace naturvida20210817.Vista
         {
             try
             {
-                DialogResult decision = MessageBox.Show("Esta seguro de actualizar el producto " + dgvProductos.CurrentRow.Cells[1].Value.ToString() + ".Esta es acción es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (decision == DialogResult.Yes)
+                if (txtCodigo.Text == "")
                 {
-                    int result = ojbClienteController.updateProducto(txtCodigo.Text, txtDescripcion.Text, Convert.ToDecimal(txtValorUnidad.Text), Convert.ToInt32(txtCantidad.Text));
-                    LlenarTabla();
-                    LimpiarForm();
+                    LblRestricción.Text = "No ha escogido ningun vendedor\n          para actualizar";
+                }
+                else
+                {
+                    DialogResult decision = MessageBox.Show("Esta seguro de actualizar el producto " + dgvProductos.CurrentRow.Cells[1].Value.ToString() + ".Esta es acción es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                    if (result != 1)
+                    if (decision == DialogResult.Yes)
                     {
-                        MessageBox.Show("Algo salio mal.No se pudo guardar el registro", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        LblRestricción.ForeColor = Color.Green;
-                        LblRestricción.Text = "Registro guardado con exito";
+                        int result = ojbClienteController.updateProducto(txtCodigo.Text, txtDescripcion.Text, Convert.ToDecimal(txtValorUnidad.Text), Convert.ToInt32(txtCantidad.Text));
+                        LlenarTabla();
+                        LimpiarForm();
+
+                        if (result != 1)
+                        {
+                            MessageBox.Show("Algo salio mal.No se pudo guardar el registro", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            LblRestricción.ForeColor = Color.Green;
+                            LblRestricción.Text = "Registro guardado con exito";
+                        }
                     }
                 }
-                
             }
             catch
             {
@@ -145,25 +151,31 @@ namespace naturvida20210817.Vista
         {
             try
             {
-                DialogResult decision = MessageBox.Show("Esta seguro de eliminar el producto " + dgvProductos.CurrentRow.Cells[1].Value.ToString() + ".Esta es acción es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (decision == DialogResult.Yes)
+                if (txtCodigo.Text == "")
                 {
-                    int result = ojbClienteController.DelProducto(txtCodigo.Text);
-                    LlenarTabla();
-                    LimpiarForm();
+                    LblRestricción.Text = "No ha escogido ningun vendedor\n          para actualizar";
+                }
+                else
+                {
+                    DialogResult decision = MessageBox.Show("Esta seguro de eliminar el producto " + dgvProductos.CurrentRow.Cells[1].Value.ToString() + ".Esta es acción es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                    if (result != 1)
+                    if (decision == DialogResult.Yes)
                     {
-                        MessageBox.Show("Algo salio mal.No se pudo guardar el registro", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        LblRestricción.ForeColor = Color.Green;
-                        LblRestricción.Text = "Registro guardado con exito";
+                        int result = ojbClienteController.DelProducto(txtCodigo.Text);
+                        LlenarTabla();
+                        LimpiarForm();
+
+                        if (result != 1)
+                        {
+                            MessageBox.Show("Algo salio mal.No se pudo guardar el registro", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            LblRestricción.ForeColor = Color.Green;
+                            LblRestricción.Text = "Registro guardado con exito";
+                        }
                     }
                 }
-
             }
             catch
             {
